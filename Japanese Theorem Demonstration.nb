@@ -1,0 +1,1485 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     57308,       1476]
+NotebookOptionsPosition[     52703,       1333]
+NotebookOutlinePosition[     54306,       1384]
+CellTagsIndexPosition[     53978,       1372]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Japanese Theorem for Cyclic Polygons", "DemoTitle",
+ CellChangeTimes->{{3.614508675183861*^9, 3.6145086812137012`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["", "InitializationSection"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"nGonTable", "[", "x_", "]"}], " ", ":=", " ", 
+   RowBox[{"N", "[", 
+    RowBox[{"Table", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"Cos", "[", 
+         FractionBox[
+          RowBox[{"i", " ", "2", " ", "\[Pi]"}], "x"], "]"}], ",", 
+        RowBox[{"Sin", "[", 
+         FractionBox[
+          RowBox[{"i", " ", "2", " ", "\[Pi]"}], "x"], "]"}]}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"i", ",", "0", ",", 
+        RowBox[{"x", "-", "1"}]}], "}"}]}], "]"}], "]"}]}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"nGonTableForGraphic", "[", "x_", "]"}], " ", ":=", "  ", 
+   RowBox[{"N", "[", 
+    RowBox[{"Table", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"Cos", "[", 
+         FractionBox[
+          RowBox[{"i", " ", "2", " ", "\[Pi]"}], "x"], "]"}], ",", 
+        RowBox[{"Sin", "[", 
+         FractionBox[
+          RowBox[{"i", " ", "2", " ", "\[Pi]"}], "x"], "]"}]}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"i", ",", "0", ",", "x"}], "}"}]}], "]"}], "]"}]}], 
+  "\[IndentingNewLine]", "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"drawEdgeQ", "[", 
+    RowBox[{"size_", ",", "lines_", ",", " ", "coord1_", ",", "coord2_"}], 
+    "]"}], ":=", "\[IndentingNewLine]", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"a", " ", "=", " ", 
+        RowBox[{"Min", "[", 
+         RowBox[{"coord1", ",", " ", "coord2"}], "]"}]}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"b", " ", "=", " ", 
+        RowBox[{"Max", "[", 
+         RowBox[{"coord1", ",", " ", "coord2"}], "]"}]}]}], 
+      "\[IndentingNewLine]", "}"}], ",", "\[IndentingNewLine]", " ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"Abs", "[", 
+        RowBox[{"a", "-", "b"}], "]"}], " ", ">", " ", "1"}], " ", "&&", " ", 
+      
+      RowBox[{
+       RowBox[{"Abs", "[", 
+        RowBox[{"a", "-", "b"}], "]"}], "<", 
+       RowBox[{"(", 
+        RowBox[{"size", "-", "1"}], ")"}]}], " ", "&&", " ", 
+      RowBox[{"FreeQ", "[", 
+       RowBox[{"lines", ",", 
+        RowBox[{"{", 
+         RowBox[{"a", ",", "b"}], "}"}]}], "]"}], "&&", "\[IndentingNewLine]", 
+      RowBox[{"AllTrue", "[", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"Range", "[", 
+         RowBox[{"Length", "[", "lines", "]"}], "]"}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"!", 
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{"FreeQ", "[", 
+             RowBox[{
+              RowBox[{
+              "lines", "\[LeftDoubleBracket]", "#", "\[RightDoubleBracket]"}],
+               ",", "a"}], "]"}], "&&", 
+            RowBox[{"FreeQ", "[", 
+             RowBox[{
+              RowBox[{
+              "lines", "\[LeftDoubleBracket]", "#", "\[RightDoubleBracket]"}],
+               ",", "b"}], "]"}], "&&", "\[IndentingNewLine]", 
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{"b", ">", 
+                RowBox[{"lines", "\[LeftDoubleBracket]", 
+                 RowBox[{"#", ",", "2"}], "\[RightDoubleBracket]"}], ">", 
+                "a"}], ")"}], "||", 
+              RowBox[{"(", 
+               RowBox[{"a", "<", 
+                RowBox[{"lines", "\[LeftDoubleBracket]", 
+                 RowBox[{"#", ",", "1"}], "\[RightDoubleBracket]"}], "<", 
+                "b"}], ")"}]}], ")"}], "&&", "\[IndentingNewLine]", 
+            RowBox[{"!", 
+             RowBox[{"(", 
+              RowBox[{
+               RowBox[{"a", "<", 
+                RowBox[{"lines", "\[LeftDoubleBracket]", 
+                 RowBox[{"#", ",", "1"}], "\[RightDoubleBracket]"}]}], "&&", 
+               RowBox[{
+                RowBox[{"lines", "\[LeftDoubleBracket]", 
+                 RowBox[{"#", ",", "2"}], "\[RightDoubleBracket]"}], "<", 
+                "b"}]}], ")"}]}]}], ")"}]}], "&"}]}], "\[IndentingNewLine]", 
+       "]"}]}]}], " ", "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"pickAPoint", "[", 
+    RowBox[{"currentPoint_", ",", "size_"}], "]"}], ":=", 
+   "\[IndentingNewLine]", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"a", "=", 
+       RowBox[{"RandomInteger", "[", 
+        RowBox[{"{", 
+         RowBox[{"1", ",", "size"}], "}"}], "]"}]}], "}"}], ",", " ", 
+     "\[IndentingNewLine]", 
+     RowBox[{"If", "[", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{"size", "-", "1"}], ")"}], ">", 
+        RowBox[{"Abs", "[", 
+         RowBox[{"a", "-", "currentPoint"}], "]"}], ">", "1"}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"Min", "[", 
+          RowBox[{"a", ",", "currentPoint"}], "]"}], ",", 
+         RowBox[{"Max", "[", 
+          RowBox[{"a", ",", "currentPoint"}], "]"}]}], "}"}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"pickAPoint", "[", 
+        RowBox[{
+         RowBox[{"RandomInteger", "[", 
+          RowBox[{"{", 
+           RowBox[{"1", ",", "size"}], "}"}], "]"}], ",", "size"}], "]"}]}], 
+      "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", "]"}]}], 
+  "\[IndentingNewLine]", "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"Attributes", "[", "AddToMaster", "]"}], "=", 
+   RowBox[{"{", "HoldRest", "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"AddToMaster", "[", 
+    RowBox[{"size_", ",", "list_"}], "]"}], ":=", "\[IndentingNewLine]", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"Coords", " ", "=", " ", 
+       RowBox[{"pickAPoint", "[", 
+        RowBox[{
+         RowBox[{"RandomInteger", "[", 
+          RowBox[{"{", 
+           RowBox[{"1", ",", "size"}], "}"}], "]"}], ",", "size"}], "]"}]}], 
+      "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"If", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{
+         RowBox[{"drawEdgeQ", "[", 
+          RowBox[{"size", ",", "list", ",", "##"}], "]"}], "&"}], "@@", 
+        "Coords"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"AppendTo", "[", 
+        RowBox[{"list", ",", "Coords"}], "]"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"If", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"Length", "[", 
+           RowBox[{"Union", "[", "list", "]"}], "]"}], "\[NotEqual]", " ", 
+          RowBox[{"size", "-", "3"}]}], ",", "\[IndentingNewLine]", 
+         RowBox[{"AddToMaster", "[", 
+          RowBox[{"size", ",", "list"}], "]"}]}], "]"}]}], 
+      "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", "]"}]}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"Incenter", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"x1_", ",", "y1_"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"x2_", ",", "y2_"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"x3_", ",", "y3_"}], "}"}]}], "}"}], "]"}], " ", ":=", " ", 
+   "\[IndentingNewLine]", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"a", " ", "=", " ", 
+        RowBox[{"EuclideanDistance", "[", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"x2", ",", "y2"}], "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"x3", ",", "y3"}], "}"}]}], "]"}]}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"b", " ", "=", " ", 
+        RowBox[{"EuclideanDistance", "[", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"x1", ",", "y1"}], "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"x3", ",", " ", "y3"}], "}"}]}], "]"}]}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"c", " ", "=", " ", 
+        RowBox[{"EuclideanDistance", "[", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"x1", ",", " ", "y1"}], "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"x2", ",", " ", "y2"}], "}"}]}], "]"}]}]}], 
+      "\[IndentingNewLine]", "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"(", " ", 
+         RowBox[{
+          RowBox[{"a", "*", "x1"}], "+", 
+          RowBox[{"b", "*", "x2"}], "+", 
+          RowBox[{"c", "*", "x3"}]}], ")"}], "/", 
+        RowBox[{"(", 
+         RowBox[{"a", "+", "b", "+", "c"}], ")"}]}], ",", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"a", "*", "y1"}], "+", 
+          RowBox[{"b", "*", "y2"}], "+", 
+          RowBox[{"c", "*", "y3"}]}], ")"}], "/", 
+        RowBox[{"(", 
+         RowBox[{"a", "+", "b", "+", "c"}], ")"}]}]}], "}"}]}], 
+    "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"Inradius", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"x1_", ",", "y1_"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"x2_", ",", "y2_"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"x3_", ",", "y3_"}], "}"}]}], "}"}], "]"}], " ", ":=", " ", 
+   "\[IndentingNewLine]", 
+   RowBox[{"2", "*", 
+    RowBox[{
+     RowBox[{"N", "@", 
+      RowBox[{"Area", "[", 
+       RowBox[{"Polygon", "[", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"x1", ",", " ", "y1"}], "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"x2", ",", " ", "y2"}], "}"}], ",", " ", 
+          RowBox[{"{", 
+           RowBox[{"x3", ",", " ", "y3"}], "}"}]}], "}"}], "]"}], "]"}]}], 
+     "/", 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"EuclideanDistance", "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"x2", ",", "y2"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"x3", ",", "y3"}], "}"}]}], "]"}], "+", 
+       RowBox[{"EuclideanDistance", "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"x1", ",", "y1"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"x3", ",", " ", "y3"}], "}"}]}], "]"}], "+", 
+       RowBox[{"EuclideanDistance", "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"x1", ",", " ", "y1"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"x2", ",", " ", "y2"}], "}"}]}], "]"}]}], ")"}]}]}]}], 
+  "\[IndentingNewLine]", "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"RandomTriangulator", "[", 
+   RowBox[{"size_Integer", ",", " ", "seed_", ",", "showLines_"}], "]"}], " ",
+   ":=", " ", "\[IndentingNewLine]", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"listForGraphic", "=", 
+       RowBox[{"{", "}"}]}], ",", "\[IndentingNewLine]", 
+      RowBox[{"listAllEdge", "=", 
+       RowBox[{"{", "}"}]}], ",", "\[IndentingNewLine]", 
+      RowBox[{"triangleList", "=", 
+       RowBox[{"{", "}"}]}], ",", "\[IndentingNewLine]", 
+      RowBox[{"sumOfRadii", "=", "0"}]}], "\[IndentingNewLine]", "}"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"SeedRandom", "[", "seed", "]"}], ";", "\[IndentingNewLine]", 
+     RowBox[{"Table", "[", 
+      RowBox[{
+       RowBox[{"AddToMaster", "[", 
+        RowBox[{"size", ",", "listForGraphic"}], "]"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"size", "-", "3"}], "}"}]}], "]"}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"listAllEdge", "=", 
+      RowBox[{"Sort", "/@", 
+       RowBox[{"Join", "[", 
+        RowBox[{
+         RowBox[{"Partition", "[", 
+          RowBox[{
+           RowBox[{"Range", "[", "size", "]"}], ",", "2", ",", "1", ",", 
+           "1"}], "]"}], ",", "listForGraphic"}], "]"}]}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"triangleList", "=", 
+      RowBox[{"Select", "[", 
+       RowBox[{
+        RowBox[{"Union", "@@@", 
+         RowBox[{"Subsets", "[", 
+          RowBox[{"listAllEdge", ",", 
+           RowBox[{"{", "3", "}"}]}], "]"}]}], ",", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"Length", "[", "#", "]"}], "\[Equal]", "3"}], "&"}]}], 
+       "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"sumOfRadii", "=", 
+      RowBox[{"Total", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"Inradius", "[", 
+          RowBox[{
+           RowBox[{"nGonTable", "[", "size", "]"}], "\[LeftDoubleBracket]", 
+           "#", "\[RightDoubleBracket]"}], "]"}], "&"}], "/@", 
+        "triangleList"}], "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"Labeled", "[", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"Graphics", "[", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"{", "\[IndentingNewLine]", 
+          RowBox[{"Red", ",", 
+           RowBox[{"Circle", "[", "]"}], ",", "\n", "\t   ", "Black", ",", 
+           RowBox[{"Line", "[", 
+            RowBox[{"nGonTableForGraphic", "[", "size", "]"}], "]"}], ",", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"Line", "[", 
+              RowBox[{"{", 
+               RowBox[{
+                RowBox[{"nGonTable", "[", "size", "]"}], 
+                "\[LeftDoubleBracket]", "#", "\[RightDoubleBracket]"}], "}"}],
+               "]"}], "&"}], "/@", "listForGraphic"}], ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{"Darker", "@", "Green"}], ",", "\[IndentingNewLine]", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"Circle", "[", "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{"Incenter", "[", 
+                RowBox[{
+                 RowBox[{"nGonTable", "[", "size", "]"}], 
+                 "\[LeftDoubleBracket]", "#", "\[RightDoubleBracket]"}], 
+                "]"}], ",", 
+               RowBox[{"Inradius", "[", 
+                RowBox[{
+                 RowBox[{"nGonTable", "[", "size", "]"}], 
+                 "\[LeftDoubleBracket]", "#", "\[RightDoubleBracket]"}], 
+                "]"}]}], "]"}], "&"}], "/@", "triangleList"}], ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{"If", "[", 
+            RowBox[{"showLines", ",", "\[IndentingNewLine]", 
+             RowBox[{"{", "\[IndentingNewLine]", 
+              RowBox[{"Black", ",", "\[IndentingNewLine]", 
+               RowBox[{
+                RowBox[{
+                 RowBox[{"Point", "[", 
+                  RowBox[{"Incenter", "[", 
+                   RowBox[{
+                    RowBox[{"nGonTable", "[", "size", "]"}], 
+                    "\[LeftDoubleBracket]", "#", "\[RightDoubleBracket]"}], 
+                   "]"}], "]"}], "&"}], "/@", "triangleList"}], ",", 
+               "\[IndentingNewLine]", "Blue", ",", "\[IndentingNewLine]", 
+               RowBox[{
+                RowBox[{
+                 RowBox[{"Line", "[", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"Incenter", "[", 
+                    RowBox[{
+                    RowBox[{"nGonTable", "[", "size", "]"}], 
+                    "\[LeftDoubleBracket]", "#", "\[RightDoubleBracket]"}], 
+                    "]"}], ",", 
+                    RowBox[{
+                    RowBox[{"Incenter", "[", 
+                    RowBox[{
+                    RowBox[{"nGonTable", "[", "size", "]"}], 
+                    "\[LeftDoubleBracket]", "#", "\[RightDoubleBracket]"}], 
+                    "]"}], "+", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"Inradius", "[", 
+                    RowBox[{
+                    RowBox[{"nGonTable", "[", "size", "]"}], 
+                    "\[LeftDoubleBracket]", "#", "\[RightDoubleBracket]"}], 
+                    "]"}], "/", 
+                    RowBox[{"2", "^", ".5"}]}], ")"}], ",", 
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"Inradius", "[", 
+                    RowBox[{
+                    RowBox[{"nGonTable", "[", "size", "]"}], 
+                    "\[LeftDoubleBracket]", "#", "\[RightDoubleBracket]"}], 
+                    "]"}], "/", 
+                    RowBox[{"2", "^", ".5"}]}], ")"}]}], "}"}]}]}], "}"}], 
+                  "]"}], "&"}], "/@", "triangleList"}]}], 
+              "\[IndentingNewLine]", "\[IndentingNewLine]", "}"}]}], 
+            "\[IndentingNewLine]", "]"}]}], "\n", "\t", "}"}], ",", 
+         "\[IndentingNewLine]", "\[IndentingNewLine]", 
+         RowBox[{"ImageSize", "\[Rule]", 
+          RowBox[{"{", 
+           RowBox[{"380", ",", "380"}], "}"}]}]}], "\[IndentingNewLine]", 
+        "]"}], "\[IndentingNewLine]", ",", 
+       RowBox[{"Text", "[", 
+        RowBox[{"Style", "[", 
+         RowBox[{
+          RowBox[{"Row", "[", 
+           RowBox[{"{", 
+            RowBox[{"\"\<sum of the radii: \>\"", ",", " ", 
+             RowBox[{"NumberForm", "[", 
+              RowBox[{"sumOfRadii", ",", " ", 
+               RowBox[{"{", 
+                RowBox[{"6", ",", "5"}], "}"}]}], "]"}]}], "}"}], "]"}], ",", 
+          
+          RowBox[{"FontSize", "\[Rule]", "30"}], ",", " ", 
+          RowBox[{"FontFamily", "->", "\"\<Geometric Sans\>\""}]}], "]"}], 
+        "]"}], ",", " ", "\[IndentingNewLine]", "Bottom"}], 
+      "\[IndentingNewLine]", "]"}]}]}], 
+   "]"}]}], "\[IndentingNewLine]"}], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{
+  3.614509707434223*^9, {3.614526833084175*^9, 3.614526835715682*^9}},
+ CellID->1186716245]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "ManipulateSection"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Manipulate", "[", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"RandomTriangulator", "[", 
+    RowBox[{"size", ",", "seed", ",", "showLines"}], "]"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"seed", ",", " ", "1"}], "}"}], ",", " ", 
+     RowBox[{"ControlType", " ", "\[Rule]", " ", "None"}]}], "}"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{"size", ",", " ", 
+     RowBox[{"ControlType", " ", "\[Rule]", " ", "None"}]}], "}"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"showLines", ",", "False", ",", 
+       RowBox[{"Style", "[", 
+        RowBox[{"\"\<show radii\>\"", ",", 
+         RowBox[{"FontSize", "\[Rule]", " ", "15"}]}], "]"}]}], "}"}], ",", 
+     "Checkbox"}], "}"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"Row", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"{", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"Control", "[", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"size", ",", "5", ",", 
+            RowBox[{"Style", "[", 
+             RowBox[{"\"\<number of vertices: \>\"", ",", " ", 
+              RowBox[{"FontSize", " ", "\[Rule]", " ", "15"}]}], "]"}]}], 
+           "}"}], ",", "3", ",", "12", ",", "1", ",", " ", 
+          RowBox[{"ControlType", " ", "\[Rule]", " ", "PopupMenu"}]}], "}"}], 
+        " ", "]"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"Button", "[", 
+        RowBox[{"\"\<randomize triangulation\>\"", ",", 
+         RowBox[{"seed", "=", 
+          RowBox[{"RandomInteger", "[", "100000", "]"}]}]}], "]"}]}], 
+      "\[IndentingNewLine]", "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"Spacer", "[", "150", "]"}]}], "\[IndentingNewLine]", "]"}], 
+   "\[IndentingNewLine]", ",", "\[IndentingNewLine]", 
+   RowBox[{"Alignment", "\[Rule]", "Center"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"AutorunSequencing", "\[Rule]", "All"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"SaveDefinitions", "\[Rule]", "True"}]}], "\[IndentingNewLine]", 
+  "]"}]], "Input",
+ CellChangeTimes->{
+  3.614508846822628*^9, {3.6145268660406*^9, 3.614526868497959*^9}}],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`seed$$ = 1, $CellContext`showLines$$ = 
+    False, $CellContext`size$$ = 5, Typeset`show$$ = True, 
+    Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{{
+       Hold[$CellContext`seed$$], 1}}, {
+      Hold[$CellContext`size$$]}, {{
+       Hold[$CellContext`showLines$$], False, 
+       Style["show radii", FontSize -> 15]}, {True, False}}, {{
+       Hold[$CellContext`size$$], 5, 
+       Style["number of vertices: ", FontSize -> 15]}, 3, 12, 1}, {
+      Hold[
+       Row[{
+         Manipulate`Place[1], 
+         Button[
+         "randomize triangulation", $CellContext`seed$$ = 
+          RandomInteger[100000]]}, 
+        Spacer[150]]], Manipulate`Dump`ThisIsNotAControl}}, Typeset`size$$ = {
+    380., {230., 192.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
+    Typeset`skipInitDone$$ = False, $CellContext`showLines$134941$$ = 
+    False, $CellContext`size$134942$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     2, StandardForm, 
+      "Variables" :> {$CellContext`seed$$ = 1, $CellContext`showLines$$ = 
+        False, $CellContext`size$$ = 5}, "ControllerVariables" :> {
+        Hold[$CellContext`showLines$$, $CellContext`showLines$134941$$, 
+         False], 
+        Hold[$CellContext`size$$, $CellContext`size$134942$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, 
+      "Body" :> $CellContext`RandomTriangulator[$CellContext`size$$, \
+$CellContext`seed$$, $CellContext`showLines$$], 
+      "Specifications" :> {{{$CellContext`seed$$, 1}, ControlType -> 
+         None}, {$CellContext`size$$, ControlType -> 
+         None}, {{$CellContext`showLines$$, False, 
+          Style["show radii", FontSize -> 15]}, {True, False}, ControlType -> 
+         Checkbox}, {{$CellContext`size$$, 5, 
+          Style["number of vertices: ", FontSize -> 15]}, 3, 12, 1, 
+         ControlType -> PopupMenu, ControlPlacement -> 1}, 
+        Row[{
+          Manipulate`Place[1], 
+          Button[
+          "randomize triangulation", $CellContext`seed$$ = 
+           RandomInteger[100000]]}, 
+         Spacer[150]]}, 
+      "Options" :> {Alignment -> Center, AutorunSequencing -> All}, 
+      "DefaultOptions" :> {ControllerLinking -> True}],
+     ImageSizeCache->{558., {265., 270.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    Initialization:>({$CellContext`RandomTriangulator[
+         Pattern[$CellContext`size, 
+          Blank[Integer]], 
+         Pattern[$CellContext`seed, 
+          Blank[]], 
+         Pattern[$CellContext`showLines, 
+          Blank[]]] := 
+       Module[{$CellContext`listForGraphic = {}, $CellContext`listAllEdge = \
+{}, $CellContext`triangleList = {}, $CellContext`sumOfRadii = 0}, 
+         SeedRandom[$CellContext`seed]; Table[
+           $CellContext`AddToMaster[$CellContext`size, \
+$CellContext`listForGraphic], {$CellContext`size - 
+            3}]; $CellContext`listAllEdge = Map[Sort, 
+            Join[
+             Partition[
+              Range[$CellContext`size], 2, 1, 
+              1], $CellContext`listForGraphic]]; $CellContext`triangleList = 
+          Select[
+            Apply[Union, 
+             Subsets[$CellContext`listAllEdge, {3}], {1}], Length[#] == 
+            3& ]; $CellContext`sumOfRadii = Total[
+            Map[$CellContext`Inradius[
+              Part[
+               $CellContext`nGonTable[$CellContext`size], #]]& , \
+$CellContext`triangleList]]; Labeled[
+           Graphics[{Red, 
+             Circle[], Black, 
+             Line[
+              $CellContext`nGonTableForGraphic[$CellContext`size]], 
+             Map[Line[{
+                Part[
+                 $CellContext`nGonTable[$CellContext`size], #]}]& , \
+$CellContext`listForGraphic], 
+             Darker[Green], 
+             Map[Circle[
+               $CellContext`Incenter[
+                Part[
+                 $CellContext`nGonTable[$CellContext`size], #]], 
+               $CellContext`Inradius[
+                Part[
+                 $CellContext`nGonTable[$CellContext`size], #]]]& , \
+$CellContext`triangleList], 
+             If[$CellContext`showLines, {Black, 
+               Map[Point[
+                 $CellContext`Incenter[
+                  Part[
+                   $CellContext`nGonTable[$CellContext`size], #]]]& , \
+$CellContext`triangleList], Blue, 
+               Map[Line[{
+                  $CellContext`Incenter[
+                   Part[
+                    $CellContext`nGonTable[$CellContext`size], #]], \
+$CellContext`Incenter[
+                    Part[
+                    $CellContext`nGonTable[$CellContext`size], #]] + \
+{$CellContext`Inradius[
+                    Part[
+                    $CellContext`nGonTable[$CellContext`size], #]]/
+                    2^0.5, $CellContext`Inradius[
+                    Part[
+                    $CellContext`nGonTable[$CellContext`size], #]]/
+                    2^0.5}}]& , $CellContext`triangleList]}]}, 
+            ImageSize -> {380, 380}], 
+           Text[
+            Style[
+             Row[{"sum of the radii: ", 
+               NumberForm[$CellContext`sumOfRadii, {6, 5}]}], FontSize -> 30, 
+             FontFamily -> "Geometric Sans"]], Bottom]], 
+       Attributes[$CellContext`AddToMaster] = {
+        HoldRest}, $CellContext`AddToMaster[
+         Pattern[$CellContext`size, 
+          Blank[]], 
+         Pattern[$CellContext`list, 
+          Blank[]]] := Module[{$CellContext`Coords = $CellContext`pickAPoint[
+            RandomInteger[{1, $CellContext`size}], $CellContext`size]}, 
+         If[
+          Apply[$CellContext`drawEdgeQ[$CellContext`size, $CellContext`list, 
+            SlotSequence[1]]& , $CellContext`Coords], 
+          AppendTo[$CellContext`list, $CellContext`Coords], 
+          If[Length[
+             Union[$CellContext`list]] != $CellContext`size - 3, 
+           $CellContext`AddToMaster[$CellContext`size, $CellContext`list]]]], \
+$CellContext`pickAPoint[
+         Pattern[$CellContext`currentPoint, 
+          Blank[]], 
+         Pattern[$CellContext`size, 
+          Blank[]]] := 
+       Module[{$CellContext`a = RandomInteger[{1, $CellContext`size}]}, 
+         If[$CellContext`size - 1 > 
+          Abs[$CellContext`a - $CellContext`currentPoint] > 1, {
+           Min[$CellContext`a, $CellContext`currentPoint], 
+           Max[$CellContext`a, $CellContext`currentPoint]}, 
+          $CellContext`pickAPoint[
+           
+           RandomInteger[{
+            1, $CellContext`size}], $CellContext`size]]], \
+$CellContext`drawEdgeQ[
+         Pattern[$CellContext`size, 
+          Blank[]], 
+         Pattern[$CellContext`lines, 
+          Blank[]], 
+         Pattern[$CellContext`coord1, 
+          Blank[]], 
+         Pattern[$CellContext`coord2, 
+          Blank[]]] := 
+       Module[{$CellContext`a = 
+          Min[$CellContext`coord1, $CellContext`coord2], $CellContext`b = 
+          Max[$CellContext`coord1, $CellContext`coord2]}, 
+         And[
+         Abs[$CellContext`a - $CellContext`b] > 1, 
+          Abs[$CellContext`a - $CellContext`b] < $CellContext`size - 1, 
+          FreeQ[$CellContext`lines, {$CellContext`a, $CellContext`b}], 
+          AllTrue[
+           Range[
+            Length[$CellContext`lines]], Not[
+            And[
+             FreeQ[
+              Part[$CellContext`lines, #], $CellContext`a], 
+             FreeQ[
+              Part[$CellContext`lines, #], $CellContext`b], 
+             
+             Or[$CellContext`b > 
+              Part[$CellContext`lines, #, 2] > $CellContext`a, $CellContext`a < 
+              Part[$CellContext`lines, #, 1] < $CellContext`b], 
+             Not[
+              
+              And[$CellContext`a < Part[$CellContext`lines, #, 1], 
+               Part[$CellContext`lines, #, 
+                 2] < $CellContext`b]]]]& ]]], $CellContext`Inradius[{{
+           Pattern[$CellContext`x1, 
+            Blank[]], 
+           Pattern[$CellContext`y1, 
+            Blank[]]}, {
+           Pattern[$CellContext`x2, 
+            Blank[]], 
+           Pattern[$CellContext`y2, 
+            Blank[]]}, {
+           Pattern[$CellContext`x3, 
+            Blank[]], 
+           Pattern[$CellContext`y3, 
+            Blank[]]}}] := 2 (N[
+           Area[
+            
+            Polygon[{{$CellContext`x1, $CellContext`y1}, {$CellContext`x2, \
+$CellContext`y2}, {$CellContext`x3, $CellContext`y3}}]]]/(
+         EuclideanDistance[{$CellContext`x2, $CellContext`y2}, \
+{$CellContext`x3, $CellContext`y3}] + 
+         EuclideanDistance[{$CellContext`x1, $CellContext`y1}, \
+{$CellContext`x3, $CellContext`y3}] + 
+         EuclideanDistance[{$CellContext`x1, $CellContext`y1}, \
+{$CellContext`x2, $CellContext`y2}])), $CellContext`nGonTable[
+         Pattern[$CellContext`x, 
+          Blank[]]] := N[
+         Table[{
+           Cos[($CellContext`i 2 Pi)/$CellContext`x], 
+           Sin[($CellContext`i 2 Pi)/$CellContext`x]}, {$CellContext`i, 
+           0, $CellContext`x - 1}]], $CellContext`nGonTableForGraphic[
+         Pattern[$CellContext`x, 
+          Blank[]]] := N[
+         Table[{
+           Cos[($CellContext`i 2 Pi)/$CellContext`x], 
+           Sin[($CellContext`i 2 Pi)/$CellContext`x]}, {$CellContext`i, 
+           0, $CellContext`x}]], $CellContext`Incenter[{{
+           Pattern[$CellContext`x1, 
+            Blank[]], 
+           Pattern[$CellContext`y1, 
+            Blank[]]}, {
+           Pattern[$CellContext`x2, 
+            Blank[]], 
+           Pattern[$CellContext`y2, 
+            Blank[]]}, {
+           Pattern[$CellContext`x3, 
+            Blank[]], 
+           Pattern[$CellContext`y3, 
+            Blank[]]}}] := 
+       Module[{$CellContext`a = 
+          EuclideanDistance[{$CellContext`x2, $CellContext`y2}, \
+{$CellContext`x3, $CellContext`y3}], $CellContext`b = 
+          EuclideanDistance[{$CellContext`x1, $CellContext`y1}, \
+{$CellContext`x3, $CellContext`y3}], $CellContext`c = 
+          EuclideanDistance[{$CellContext`x1, $CellContext`y1}, \
+{$CellContext`x2, $CellContext`y2}]}, {($CellContext`a $CellContext`x1 + \
+$CellContext`b $CellContext`x2 + $CellContext`c \
+$CellContext`x3)/($CellContext`a + $CellContext`b + $CellContext`c), \
+($CellContext`a $CellContext`y1 + $CellContext`b $CellContext`y2 + \
+$CellContext`c $CellContext`y3)/($CellContext`a + $CellContext`b + \
+$CellContext`c)}]}; Typeset`initDone$$ = True),
+    SynchronousInitialization->True,
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{3.614526869707213*^9, 3.614628147969067*^9},
+ CellID->432941662]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "ManipulateCaptionSection"],
+
+Cell["\<\
+The Japanese Theorem for Cyclic Polygons states that no matter how a cyclic \
+convex polygon is triangulated, the sum of the inradii of the triangles \
+remains constant. This demonstration shows random triangulations of regular \
+polygons inscribed in a unit circle as well as the sum of the inradii of the \
+triangles.\
+\>", "ManipulateCaption",
+ CellChangeTimes->{{3.614508859202446*^9, 3.614508905840211*^9}, {
+  3.6145089442889347`*^9, 3.6145090139020844`*^9}, {3.614509571305069*^9, 
+  3.614509571797572*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "ThumbnailSection"],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`seed$$ = 578, $CellContext`showLines$$ = 
+    False, $CellContext`size$$ = 8, Typeset`show$$ = True, 
+    Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{{
+       Hold[$CellContext`seed$$], 578}}, {{
+       Hold[$CellContext`size$$], 8}}, {{
+       Hold[$CellContext`showLines$$], False, 
+       Style["show radii", FontSize -> 15]}, {True, False}}, {{
+       Hold[$CellContext`size$$], 8, 
+       Style["number of vertices: ", FontSize -> 15]}, 3, 12, 1}, {
+      Hold[
+       Row[{
+         Manipulate`Place[1], 
+         Button[
+         "randomize triangulation", $CellContext`seed$$ = 
+          RandomInteger[100000]]}, 
+        Spacer[150]]], Manipulate`Dump`ThisIsNotAControl}}, Typeset`size$$ = {
+    380., {230., 192.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
+    Typeset`skipInitDone$$ = True, $CellContext`showLines$57058$$ = 
+    False, $CellContext`size$57059$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     2, StandardForm, 
+      "Variables" :> {$CellContext`seed$$ = 578, $CellContext`showLines$$ = 
+        False, $CellContext`size$$ = 8}, "ControllerVariables" :> {
+        Hold[$CellContext`showLines$$, $CellContext`showLines$57058$$, False], 
+        Hold[$CellContext`size$$, $CellContext`size$57059$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, 
+      "Body" :> $CellContext`RandomTriangulator[$CellContext`size$$, \
+$CellContext`seed$$, $CellContext`showLines$$], 
+      "Specifications" :> {{{$CellContext`seed$$, 578}, ControlType -> 
+         None}, {{$CellContext`size$$, 8}, ControlType -> 
+         None}, {{$CellContext`showLines$$, False, 
+          Style["show radii", FontSize -> 15]}, {True, False}, ControlType -> 
+         Checkbox}, {{$CellContext`size$$, 8, 
+          Style["number of vertices: ", FontSize -> 15]}, 3, 12, 1, 
+         ControlType -> PopupMenu, ControlPlacement -> 1}, 
+        Row[{
+          Manipulate`Place[1], 
+          Button[
+          "randomize triangulation", $CellContext`seed$$ = 
+           RandomInteger[100000]]}, 
+         Spacer[150]]}, "Options" :> {Alignment -> Center}, 
+      "DefaultOptions" :> {ControllerLinking -> True}],
+     ImageSizeCache->{558., {265., 270.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellID->1511761266]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "SnapshotsSection"],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`seed$$ = 66272, $CellContext`showLines$$ = 
+    True, $CellContext`size$$ = 7, Typeset`show$$ = True, 
+    Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{{
+       Hold[$CellContext`seed$$], 66272}}, {{
+       Hold[$CellContext`size$$], 7}}, {{
+       Hold[$CellContext`showLines$$], True, 
+       Style["show radii", FontSize -> 15]}, {True, False}}, {{
+       Hold[$CellContext`size$$], 7, 
+       Style["number of vertices: ", FontSize -> 15]}, 3, 12, 1}, {
+      Hold[
+       Row[{
+         Manipulate`Place[1], 
+         Button[
+         "randomize triangulation", $CellContext`seed$$ = 
+          RandomInteger[100000]]}, 
+        Spacer[150]]], Manipulate`Dump`ThisIsNotAControl}}, Typeset`size$$ = {
+    380., {230., 192.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
+    Typeset`skipInitDone$$ = True, $CellContext`showLines$57120$$ = 
+    False, $CellContext`size$57121$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     2, StandardForm, 
+      "Variables" :> {$CellContext`seed$$ = 66272, $CellContext`showLines$$ = 
+        True, $CellContext`size$$ = 7}, "ControllerVariables" :> {
+        Hold[$CellContext`showLines$$, $CellContext`showLines$57120$$, False], 
+        Hold[$CellContext`size$$, $CellContext`size$57121$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, 
+      "Body" :> $CellContext`RandomTriangulator[$CellContext`size$$, \
+$CellContext`seed$$, $CellContext`showLines$$], 
+      "Specifications" :> {{{$CellContext`seed$$, 66272}, ControlType -> 
+         None}, {{$CellContext`size$$, 7}, ControlType -> 
+         None}, {{$CellContext`showLines$$, True, 
+          Style["show radii", FontSize -> 15]}, {True, False}, ControlType -> 
+         Checkbox}, {{$CellContext`size$$, 7, 
+          Style["number of vertices: ", FontSize -> 15]}, 3, 12, 1, 
+         ControlType -> PopupMenu, ControlPlacement -> 1}, 
+        Row[{
+          Manipulate`Place[1], 
+          Button[
+          "randomize triangulation", $CellContext`seed$$ = 
+           RandomInteger[100000]]}, 
+         Spacer[150]]}, "Options" :> {Alignment -> Center}, 
+      "DefaultOptions" :> {ControllerLinking -> True}],
+     ImageSizeCache->{558., {265., 270.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellID->1292570005],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`seed$$ = 3552, $CellContext`showLines$$ = 
+    False, $CellContext`size$$ = 6, Typeset`show$$ = True, 
+    Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{{
+       Hold[$CellContext`seed$$], 3552}}, {{
+       Hold[$CellContext`size$$], 6}}, {{
+       Hold[$CellContext`showLines$$], False, 
+       Style["show radii", FontSize -> 15]}, {True, False}}, {{
+       Hold[$CellContext`size$$], 6, 
+       Style["number of vertices: ", FontSize -> 15]}, 3, 12, 1}, {
+      Hold[
+       Row[{
+         Manipulate`Place[1], 
+         Button[
+         "randomize triangulation", $CellContext`seed$$ = 
+          RandomInteger[100000]]}, 
+        Spacer[150]]], Manipulate`Dump`ThisIsNotAControl}}, Typeset`size$$ = {
+    380., {229., 192.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
+    Typeset`skipInitDone$$ = True, $CellContext`showLines$57182$$ = 
+    False, $CellContext`size$57183$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     2, StandardForm, 
+      "Variables" :> {$CellContext`seed$$ = 3552, $CellContext`showLines$$ = 
+        False, $CellContext`size$$ = 6}, "ControllerVariables" :> {
+        Hold[$CellContext`showLines$$, $CellContext`showLines$57182$$, False], 
+        Hold[$CellContext`size$$, $CellContext`size$57183$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, 
+      "Body" :> $CellContext`RandomTriangulator[$CellContext`size$$, \
+$CellContext`seed$$, $CellContext`showLines$$], 
+      "Specifications" :> {{{$CellContext`seed$$, 3552}, ControlType -> 
+         None}, {{$CellContext`size$$, 6}, ControlType -> 
+         None}, {{$CellContext`showLines$$, False, 
+          Style["show radii", FontSize -> 15]}, {True, False}, ControlType -> 
+         Checkbox}, {{$CellContext`size$$, 6, 
+          Style["number of vertices: ", FontSize -> 15]}, 3, 12, 1, 
+         ControlType -> PopupMenu, ControlPlacement -> 1}, 
+        Row[{
+          Manipulate`Place[1], 
+          Button[
+          "randomize triangulation", $CellContext`seed$$ = 
+           RandomInteger[100000]]}, 
+         Spacer[150]]}, "Options" :> {Alignment -> Center}, 
+      "DefaultOptions" :> {ControllerLinking -> True}],
+     ImageSizeCache->{558., {265., 270.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellID->279500983],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`seed$$ = 75878, $CellContext`showLines$$ = 
+    False, $CellContext`size$$ = 4, Typeset`show$$ = True, 
+    Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{{
+       Hold[$CellContext`seed$$], 75878}}, {{
+       Hold[$CellContext`size$$], 4}}, {{
+       Hold[$CellContext`showLines$$], False, 
+       Style["show radii", FontSize -> 15]}, {True, False}}, {{
+       Hold[$CellContext`size$$], 4, 
+       Style["number of vertices: ", FontSize -> 15]}, 3, 12, 1}, {
+      Hold[
+       Row[{
+         Manipulate`Place[1], 
+         Button[
+         "randomize triangulation", $CellContext`seed$$ = 
+          RandomInteger[100000]]}, 
+        Spacer[150]]], Manipulate`Dump`ThisIsNotAControl}}, Typeset`size$$ = {
+    380., {229., 192.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
+    Typeset`skipInitDone$$ = True, $CellContext`showLines$57244$$ = 
+    False, $CellContext`size$57245$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     2, StandardForm, 
+      "Variables" :> {$CellContext`seed$$ = 75878, $CellContext`showLines$$ = 
+        False, $CellContext`size$$ = 4}, "ControllerVariables" :> {
+        Hold[$CellContext`showLines$$, $CellContext`showLines$57244$$, False], 
+        Hold[$CellContext`size$$, $CellContext`size$57245$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, 
+      "Body" :> $CellContext`RandomTriangulator[$CellContext`size$$, \
+$CellContext`seed$$, $CellContext`showLines$$], 
+      "Specifications" :> {{{$CellContext`seed$$, 75878}, ControlType -> 
+         None}, {{$CellContext`size$$, 4}, ControlType -> 
+         None}, {{$CellContext`showLines$$, False, 
+          Style["show radii", FontSize -> 15]}, {True, False}, ControlType -> 
+         Checkbox}, {{$CellContext`size$$, 4, 
+          Style["number of vertices: ", FontSize -> 15]}, 3, 12, 1, 
+         ControlType -> PopupMenu, ControlPlacement -> 1}, 
+        Row[{
+          Manipulate`Place[1], 
+          Button[
+          "randomize triangulation", $CellContext`seed$$ = 
+           RandomInteger[100000]]}, 
+         Spacer[150]]}, "Options" :> {Alignment -> Center}, 
+      "DefaultOptions" :> {ControllerLinking -> True}],
+     ImageSizeCache->{558., {265., 270.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellID->1026285292]
+}, Open  ]],
+
+Cell["", "DetailsSection"],
+
+Cell[CellGroupData[{
+
+Cell["", "ControlSuggestionsSection"],
+
+Cell[BoxData[
+ TooltipBox[
+  RowBox[{
+   CheckboxBox[False], Cell[" Resize Images"]}],
+  "\"Click inside an image to reveal its orange resize frame.\\nDrag any of \
+the orange resize handles to resize the image.\"",
+  TooltipDelay->0.35]], "ControlSuggestions",
+ FontFamily->"Verdana",
+ CellTags->"ResizeImages"],
+
+Cell[BoxData[
+ TooltipBox[
+  RowBox[{
+   CheckboxBox[False], Cell[" Rotate and Zoom in 3D"]}],
+  RowBox[{
+   "\"Drag a 3D graphic to rotate it. Starting the drag near the center \
+tumbles\\nthe graphic; starting near a corner turns it parallel to the plane \
+of the screen.\\nHold down \"", 
+    FrameBox[
+    "Ctrl", Background -> GrayLevel[0.9], FrameMargins -> 2, FrameStyle -> 
+     GrayLevel[0.9]], "\" (or \"", 
+    FrameBox[
+    "Cmd", Background -> GrayLevel[0.9], FrameMargins -> 2, FrameStyle -> 
+     GrayLevel[0.9]], "\" on Mac) and drag up and down to zoom.\""}],
+  TooltipDelay->0.35]], "ControlSuggestions",
+ FontFamily->"Verdana",
+ CellTags->"RotateAndZoomIn3D"],
+
+Cell[BoxData[
+ TooltipBox[
+  RowBox[{
+   CheckboxBox[False], Cell[" Drag Locators"]}],
+  RowBox[{"\"Drag any locator (\"", 
+    GraphicsBox[
+     LocatorBox[
+      Scaled[{0.5, 0.5}]], ImageSize -> 20], 
+    "\", etc.) to move it around.\""}],
+  TooltipDelay->0.35]], "ControlSuggestions",
+ FontFamily->"Verdana",
+ CellTags->"DragLocators"],
+
+Cell[BoxData[
+ TooltipBox[
+  RowBox[{
+   CheckboxBox[False], Cell[" Create and Delete Locators"]}],
+  RowBox[{"\"Insert a new locator in the graphic by holding down the \"", 
+    FrameBox[
+    "Alt", Background -> GrayLevel[0.9], FrameMargins -> 2, FrameStyle -> 
+     GrayLevel[0.9]], 
+    "\" key\\nand clicking where you want it to be. Delete a locator by \
+clicking it\\nwhile holding down the \"", 
+    FrameBox[
+    "Alt", Background -> GrayLevel[0.9], FrameMargins -> 2, FrameStyle -> 
+     GrayLevel[0.9]], "\" key.\""}],
+  TooltipDelay->0.35]], "ControlSuggestions",
+ FontFamily->"Verdana",
+ CellTags->"CreateAndDeleteLocators"],
+
+Cell[BoxData[
+ TooltipBox[
+  RowBox[{
+   CheckboxBox[False], Cell[" Slider Zoom"]}],
+  RowBox[{"\"Hold down the \"", 
+    FrameBox[
+    "Alt", Background -> GrayLevel[0.9], FrameMargins -> 2, FrameStyle -> 
+     GrayLevel[0.9]], 
+    "\" key while moving a slider to make fine adjustments in the slider \
+value.\\nHold \"", 
+    FrameBox[
+    "Ctrl", Background -> GrayLevel[0.9], FrameMargins -> 2, FrameStyle -> 
+     GrayLevel[0.9]], "\" and/or \"", 
+    FrameBox[
+    "Shift", Background -> GrayLevel[0.9], FrameMargins -> 2, FrameStyle -> 
+     GrayLevel[0.9]], "\" at the same time as \"", 
+    FrameBox[
+    "Alt", Background -> GrayLevel[0.9], FrameMargins -> 2, FrameStyle -> 
+     GrayLevel[0.9]], "\" to make ever finer adjustments.\""}],
+  TooltipDelay->0.35]], "ControlSuggestions",
+ FontFamily->"Verdana",
+ CellTags->"SliderZoom"],
+
+Cell[BoxData[
+ TooltipBox[
+  RowBox[{
+   CheckboxBox[False], Cell[" Gamepad Controls"]}],
+  "\"Control this Demonstration with a gamepad or other\\nhuman interface \
+device connected to your computer.\"",
+  TooltipDelay->0.35]], "ControlSuggestions",
+ CellChangeTimes->{3.35696210375764*^9, 3.3895522232313623`*^9},
+ FontFamily->"Verdana",
+ CellTags->"GamepadControls"],
+
+Cell[BoxData[
+ TooltipBox[
+  RowBox[{
+   CheckboxBox[False], Cell[" Automatic Animation"]}],
+  RowBox[{"\"Animate a slider in this Demonstration by clicking the\"", 
+    AdjustmentBox[
+     Cell[
+      GraphicsData[
+      "CompressedBitmap", 
+       "eJzzTSzJSM1NLMlMTlRwL0osyMhMLlZwyy8CCjEzMjAwcIKwAgOI/R/IhBKc\n\
+/4EAyGAG0f+nTZsGwgysIJIRKsWKLAXGIHFmEpUgLADxWUAkI24jZs+eTaEt\n\
+IG+wQKRmzJgBlYf5lhEA30OqWA=="], "Graphics", ImageSize -> {9, 9}, ImageMargins -> 
+      0, CellBaseline -> Baseline], BoxBaselineShift -> 0.1839080459770115, 
+     BoxMargins -> {{0., 0.}, {-0.1839080459770115, 0.1839080459770115}}], 
+    "\"button\\nnext to the slider, and then clicking the play button that \
+appears.\\nAnimate all controls by selecting \"", 
+    StyleBox["Autorun", FontWeight -> "Bold"], "\" from the\"", 
+    AdjustmentBox[
+     Cell[
+      GraphicsData[
+      "CompressedBitmap", 
+       "eJyNULENwyAQfEySIlMwTVJlCGRFsosokeNtqBmDBagoaZjAI1C8/8GUUUC6\n\
+57h7cQ8PvU7Pl17nUav7oj/TPH7V7b2QJAUAXBkKmCPRowxICy64bRvGGNF7\n\
+X8CctGoDSN4xhIDGGDhzFXwUh3/ClBKrDQPmnGXtI6u0OOd+tZBVUqy1xSaH\n\
+UqiK6pPe4XdEdAz6563tx/gejuORGMxJaz8mdpJn7hc="], "Graphics", 
+      ImageSize -> {10, 10}, ImageMargins -> 0, CellBaseline -> Baseline], 
+     BoxBaselineShift -> 0.1839080459770115, 
+     BoxMargins -> {{0., 0.}, {-0.1839080459770115, 0.1839080459770115}}], 
+    "\"menu.\""}],
+  TooltipDelay->0.35]], "ControlSuggestions",
+ FontFamily->"Verdana",
+ CellTags->"AutomaticAnimation"],
+
+Cell[BoxData[
+ TooltipBox[
+  RowBox[{
+   CheckboxBox[False], Cell[" Bookmark Animation"]}],
+  RowBox[{
+   "\"See a prepared animation of this Demonstration by selecting\\n\"", 
+    StyleBox["Animate Bookmarks", FontWeight -> "Bold"], "\" from the\"", 
+    AdjustmentBox[
+     Cell[
+      GraphicsData[
+      "CompressedBitmap", 
+       "eJyNULENwyAQfEySIlMwTVJlCGRFsosokeNtqBmDBagoaZjAI1C8/8GUUUC6\n\
+57h7cQ8PvU7Pl17nUav7oj/TPH7V7b2QJAUAXBkKmCPRowxICy64bRvGGNF7\n\
+X8CctGoDSN4xhIDGGDhzFXwUh3/ClBKrDQPmnGXtI6u0OOd+tZBVUqy1xSaH\n\
+UqiK6pPe4XdEdAz6563tx/gejuORGMxJaz8mdpJn7hc="], "Graphics", 
+      ImageSize -> {10, 10}, ImageMargins -> 0, CellBaseline -> Baseline], 
+     BoxBaselineShift -> 0.1839080459770115, 
+     BoxMargins -> {{0., 0.}, {-0.1839080459770115, 0.1839080459770115}}], 
+    "\"menu.\""}],
+  TooltipDelay->0.35]], "ControlSuggestions",
+ FontFamily->"Verdana",
+ CellTags->"BookmarkAnimation"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "SearchTermsSection"],
+
+Cell["triangulation", "SearchTerms",
+ CellChangeTimes->{{3.6145112006037416`*^9, 3.614511226224155*^9}},
+ CellID->946595705],
+
+Cell["cyclic polygon", "SearchTerms",
+ CellChangeTimes->{{3.6145112287675133`*^9, 3.614511230600336*^9}},
+ CellID->875156959],
+
+Cell["japanese theorem", "SearchTerms",
+ CellChangeTimes->{{3.614511254750443*^9, 3.614511256407834*^9}},
+ CellID->647511610],
+
+Cell["catalan number ", "SearchTerms",
+ CellChangeTimes->{{3.614511279477844*^9, 3.614511281463242*^9}},
+ CellID->1427989921],
+
+Cell["computational geometry", "SearchTerms",
+ CellChangeTimes->{{3.614511332477414*^9, 3.614511334622053*^9}},
+ CellID->2096847022],
+
+Cell["polygon", "SearchTerms",
+ CellChangeTimes->{{3.614511349090255*^9, 3.614511352179839*^9}},
+ CellID->1501251484],
+
+Cell["Carnot's theorem", "SearchTerms",
+ CellChangeTimes->{{3.614512345636224*^9, 3.614512348891921*^9}},
+ CellID->2037391846],
+
+Cell["Sangaku", "SearchTerms",
+ CellChangeTimes->{{3.6145123541569777`*^9, 3.614512354804248*^9}},
+ CellID->818004307],
+
+Cell["Incircle", "SearchTerms",
+ CellChangeTimes->{{3.614512368195256*^9, 3.6145123690596123`*^9}},
+ CellID->8079655]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "RelatedLinksSection"],
+
+Cell[TextData[{
+ ButtonBox["Polygon Triangulations",
+  BaseStyle->"Hyperlink",
+  ButtonData->{
+    URL["http://demonstrations.wolfram.com/PolygonTriangulations/"], None},
+  ButtonNote->"http://demonstrations.wolfram.com/PolygonTriangulations/"],
+ " "
+}], "RelatedLinks",
+ CellChangeTimes->{{3.61451137430088*^9, 3.6145114152933083`*^9}},
+ CellID->748322985],
+
+Cell[TextData[ButtonBox["Labeled Polygon Triangulations",
+ BaseStyle->"Hyperlink",
+ ButtonData->{
+   URL["http://demonstrations.wolfram.com/LabeledPolygonTriangulations/"], 
+   None},
+ ButtonNote->
+  "http://demonstrations.wolfram.com/LabeledPolygonTriangulations/"]], \
+"RelatedLinks",
+ CellChangeTimes->{{3.61451137430088*^9, 3.614511427949728*^9}, {
+  3.614511656116856*^9, 3.614511672114726*^9}},
+ CellID->1946066343],
+
+Cell[TextData[ButtonBox["Japanese Theorem",
+ BaseStyle->"Hyperlink",
+ ButtonData->{
+   URL["http://mathworld.wolfram.com/JapaneseTheorem.html"], None},
+ ButtonNote->
+  "http://mathworld.wolfram.com/JapaneseTheorem.html"]], "RelatedLinks",
+ CellChangeTimes->{{3.6145120138998938`*^9, 3.6145120316545143`*^9}},
+ CellID->1361082991],
+
+Cell[TextData[ButtonBox["Inradius",
+ BaseStyle->"Hyperlink",
+ ButtonData->{
+   URL["http://mathworld.wolfram.com/Inradius.html"], None},
+ ButtonNote->"http://mathworld.wolfram.com/Inradius.html"]], "RelatedLinks",
+ CellChangeTimes->{{3.614511951621963*^9, 3.614511962204752*^9}},
+ CellID->1699946685],
+
+Cell["", "RelatedLinks",
+ CellChangeTimes->{{3.61451203650907*^9, 3.614512045157215*^9}},
+ CellID->726021893]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "AuthorSection"],
+
+Cell["Contributed by: David Kang Myung Yang ", "Author",
+ CellChangeTimes->{{3.6145111655886917`*^9, 3.614511168337803*^9}}],
+
+Cell["(Mathematica Summer Camp 2014)", "Author",
+ CellID->247873397]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{700, Automatic},
+WindowMargins->{{10, Automatic}, {0, 0}},
+FrontEndVersion->"10.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (June 27, \
+2014)",
+StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "Demonstration.nb", 
+  CharacterEncoding -> "UTF-8"]
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{
+ "ResizeImages"->{
+  Cell[44040, 1082, 312, 8, 29, "ControlSuggestions",
+   CellTags->"ResizeImages"]},
+ "RotateAndZoomIn3D"->{
+  Cell[44355, 1092, 678, 16, 29, "ControlSuggestions",
+   CellTags->"RotateAndZoomIn3D"]},
+ "DragLocators"->{
+  Cell[45036, 1110, 340, 11, 29, "ControlSuggestions",
+   CellTags->"DragLocators"]},
+ "CreateAndDeleteLocators"->{
+  Cell[45379, 1123, 637, 15, 29, "ControlSuggestions",
+   CellTags->"CreateAndDeleteLocators"]},
+ "SliderZoom"->{
+  Cell[46019, 1140, 844, 21, 29, "ControlSuggestions",
+   CellTags->"SliderZoom"]},
+ "GamepadControls"->{
+  Cell[46866, 1163, 369, 9, 29, "ControlSuggestions",
+   CellTags->"GamepadControls"]},
+ "AutomaticAnimation"->{
+  Cell[47238, 1174, 1464, 31, 29, "ControlSuggestions",
+   CellTags->"AutomaticAnimation"]},
+ "BookmarkAnimation"->{
+  Cell[48705, 1207, 908, 21, 29, "ControlSuggestions",
+   CellTags->"BookmarkAnimation"]}
+ }
+*)
+(*CellTagsIndex
+CellTagsIndex->{
+ {"ResizeImages", 53079, 1345},
+ {"RotateAndZoomIn3D", 53188, 1348},
+ {"DragLocators", 53298, 1351},
+ {"CreateAndDeleteLocators", 53414, 1354},
+ {"SliderZoom", 53528, 1357},
+ {"GamepadControls", 53634, 1360},
+ {"AutomaticAnimation", 53747, 1363},
+ {"BookmarkAnimation", 53864, 1366}
+ }
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 125, 1, 76, "DemoTitle"],
+Cell[CellGroupData[{
+Cell[730, 27, 33, 0, 275, "InitializationSection"],
+Cell[766, 29, 17398, 451, 1612, "Input",
+ InitializationCell->True,
+ CellID->1186716245]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[18201, 485, 29, 0, 243, "ManipulateSection"],
+Cell[CellGroupData[{
+Cell[18255, 489, 2215, 52, 294, "Input"],
+Cell[20473, 543, 10976, 251, 547, "Output",
+ CellID->432941662]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[31498, 800, 36, 0, 181, "ManipulateCaptionSection"],
+Cell[31537, 802, 524, 9, 71, "ManipulateCaption"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[32098, 816, 28, 0, 179, "ThumbnailSection"],
+Cell[32129, 818, 2929, 61, 547, "Output",
+ CellID->1511761266]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[35095, 884, 28, 0, 149, "SnapshotsSection"],
+Cell[35126, 886, 2933, 61, 547, "Output",
+ CellID->1292570005],
+Cell[38062, 949, 2932, 61, 547, "Output",
+ CellID->279500983],
+Cell[40997, 1012, 2937, 61, 547, "Output",
+ CellID->1026285292]
+}, Open  ]],
+Cell[43949, 1076, 26, 0, 357, "DetailsSection"],
+Cell[CellGroupData[{
+Cell[44000, 1080, 37, 0, 119, "ControlSuggestionsSection"],
+Cell[44040, 1082, 312, 8, 29, "ControlSuggestions",
+ CellTags->"ResizeImages"],
+Cell[44355, 1092, 678, 16, 29, "ControlSuggestions",
+ CellTags->"RotateAndZoomIn3D"],
+Cell[45036, 1110, 340, 11, 29, "ControlSuggestions",
+ CellTags->"DragLocators"],
+Cell[45379, 1123, 637, 15, 29, "ControlSuggestions",
+ CellTags->"CreateAndDeleteLocators"],
+Cell[46019, 1140, 844, 21, 29, "ControlSuggestions",
+ CellTags->"SliderZoom"],
+Cell[46866, 1163, 369, 9, 29, "ControlSuggestions",
+ CellTags->"GamepadControls"],
+Cell[47238, 1174, 1464, 31, 29, "ControlSuggestions",
+ CellTags->"AutomaticAnimation"],
+Cell[48705, 1207, 908, 21, 29, "ControlSuggestions",
+ CellTags->"BookmarkAnimation"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[49650, 1233, 30, 0, 165, "SearchTermsSection"],
+Cell[49683, 1235, 124, 2, 23, "SearchTerms",
+ CellID->946595705],
+Cell[49810, 1239, 125, 2, 23, "SearchTerms",
+ CellID->875156959],
+Cell[49938, 1243, 125, 2, 23, "SearchTerms",
+ CellID->647511610],
+Cell[50066, 1247, 125, 2, 23, "SearchTerms",
+ CellID->1427989921],
+Cell[50194, 1251, 132, 2, 23, "SearchTerms",
+ CellID->2096847022],
+Cell[50329, 1255, 117, 2, 23, "SearchTerms",
+ CellID->1501251484],
+Cell[50449, 1259, 126, 2, 23, "SearchTerms",
+ CellID->2037391846],
+Cell[50578, 1263, 118, 2, 23, "SearchTerms",
+ CellID->818004307],
+Cell[50699, 1267, 117, 2, 23, "SearchTerms",
+ CellID->8079655]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[50853, 1274, 31, 0, 149, "RelatedLinksSection"],
+Cell[50887, 1276, 357, 9, 23, "RelatedLinks",
+ CellID->748322985],
+Cell[51247, 1287, 421, 10, 23, "RelatedLinks",
+ CellID->1946066343],
+Cell[51671, 1299, 329, 7, 23, "RelatedLinks",
+ CellID->1361082991],
+Cell[52003, 1308, 300, 6, 23, "RelatedLinks",
+ CellID->1699946685],
+Cell[52306, 1316, 109, 2, 23, "RelatedLinks",
+ CellID->726021893]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[52452, 1323, 25, 0, 149, "AuthorSection"],
+Cell[52480, 1325, 124, 1, 23, "Author"],
+Cell[52607, 1328, 68, 1, 23, "Author",
+ CellID->247873397]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
